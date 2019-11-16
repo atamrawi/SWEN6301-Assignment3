@@ -4,6 +4,37 @@ import java.util.Random;
 
 public class RandomUtils {
 	
+	enum bloodTypes {NULL, 
+		NONE,
+		A_POSITIVE("A+"),
+		A_NEGATIVE("A-"),
+		O_POSITIVE("O+"),
+		O_NEGATIVE("O-"),
+		B_POSITIVE("B+"),
+		B_NEGATIVE("B-"),
+		AB_POSITIVE("AB+"),
+		AB_NEGATIVE("AB-");
+		
+		private String group;
+		private bloodTypes(String group) {
+			this.group = group;
+		}
+		
+		private bloodTypes() {}
+		
+	 //The number of bloodTypes
+		private static final int enumSize = bloodTypes.values().length;
+	};
+	
+	enum possibleSexValues {
+		NULL,
+		NONE,
+		MALE, 
+		FEMALE;
+		// The number of possibleSexValues
+		private static final int enumSize = possibleSexValues.values().length;
+	};
+	
 	/**
 	 * An instance of {@link Random} that will be used in generating random identifiers in encolsed methods.
 	 */
@@ -65,8 +96,7 @@ public class RandomUtils {
 	 * @return a random blood type {@link String}.
 	 */
 	public static String randomBloodType() {
-		String[] bloodTypes = {null, "none", "a+", "a-", "o+", "o-", "b+", "b-", "ab+", "ab-"};
-		return bloodTypes[RANDOM.nextInt(bloodTypes.length)];
+		return bloodTypes.values()[RANDOM.nextInt(bloodTypes.enumSize)].toString();
 	}
 	
 	/**
@@ -75,8 +105,7 @@ public class RandomUtils {
 	 * @return a random sex type {@link String}.
 	 */
 	public static String randomSexString() {
-		String[] possibleSexValues = {null, "none", "male", "female"};
-		return possibleSexValues[RANDOM.nextInt(possibleSexValues.length)];
+		return possibleSexValues.values()[RANDOM.nextInt(possibleSexValues.enumSize)].toString();
 	}
 	
 }
