@@ -1,6 +1,5 @@
 package com.swen6301.builder;
 
-import com.swen6301.builder.util.PersistenceUtils;
 import com.swen6301.builder.util.RandomUtils;
 
 /**
@@ -22,21 +21,23 @@ public class Driver {
 	 * Creates a sample patient info and store them on internal storage.
 	 */
 	public static void createRandomPatientInfo() {
-		String firstName = RandomUtils.randomIdentifier();
-		String middleName = RandomUtils.randomIdentifier();
-		String lastName = RandomUtils.randomIdentifier();
-		int age = RandomUtils.randomNumber(150);
-		int weight = RandomUtils.randomNumber(400);
-		String sex = RandomUtils.randomSexString();
-		int height = RandomUtils.randomNumber(300);
-		boolean organDonor = RandomUtils.randomBoolean();
-		String bloodType = RandomUtils.randomBloodType();
-		boolean success = PersistenceUtils.storePatientInfo(firstName, middleName, lastName, age, weight, sex, height, organDonor, bloodType);
-		if(success) {
-			System.out.println("Patient [" + firstName + ", " + lastName + "] has been successfully processed!");
+		
+		Patient patient = new Patient.PatientBuilder()
+			.setFirstName(RandomUtils.randomIdentifier())
+			.setMiddleName(RandomUtils.randomIdentifier())
+			.setLastName(RandomUtils.randomIdentifier())
+			.setAge(RandomUtils.randomNumber(150))
+			.setWeight(RandomUtils.randomNumber(400))
+			.setHeight(RandomUtils.randomNumber(300))
+			.setOrganDonor(RandomUtils.randomBoolean())
+			.setSex(RandomUtils.randomSexString())
+			.setBloodType(RandomUtils.randomBloodType())
+			.buildPatient();
+		
+		if(patient == null) {
+			System.out.println("An error occurred while processing info for patient!");
 		} else {
-			System.out.println("An error occurred while processing info for patient [" + firstName + ", " + lastName + "]!");
+			System.out.println("Patient [" + patient.getFirstName() + patient.getLastName() + "] has been successfully processed!");
 		}
 	}
-	
 }
